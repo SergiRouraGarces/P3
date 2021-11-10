@@ -10,8 +10,13 @@ using namespace std;
 namespace upc {
   void PitchAnalyzer::autocorrelation(const vector<float> &x, vector<float> &r) const {
 
-    for (unsigned int l = 0; l < r.size(); ++l) {
+    for (unsigned int l = 0; l < r.size(); ++l) { //r es un vector perque te size
   		/// \TODO Compute the autocorrelation r[l]
+      /// \DONE Hem implementat l'autocorrelacio d'un senyal real
+      r[l]=0;
+      for (unsigned int n=0; n < x.size() -l; n++) {
+        r[l] += x[n] * x[n+l];
+      }
     }
 
     if (r[0] == 0.0F) //to avoid log() and divide zero 

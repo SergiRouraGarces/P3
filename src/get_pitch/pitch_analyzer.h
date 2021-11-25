@@ -21,7 +21,8 @@ namespace upc {
 		RECT, 						///< Rectangular window
 		HAMMING						///< Hamming window
 	};
-
+  float umbral1;
+  
     void set_window(Window type); ///< pre-compute window
 
   private:

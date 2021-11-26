@@ -4,6 +4,10 @@
 #include <math.h>
 #include "pitch_analyzer.h"
 
+const float UMBRAL_RMAXNORM = 0.5F;  //modificar
+const float UMBRAL_R1NORM = 0.93F;
+const float UMBRAL_POT = 50.0F;
+
 using namespace std;
 
 /// Name space of UPC
@@ -17,6 +21,7 @@ namespace upc {
       for (unsigned int n=0; n < x.size() -l; n++) {
         r[l] += x[n] * x[n+l];
       }
+      r[1] = r[1]/x.size();
     }
 
     if (r[0] == 0.0F) //to avoid log() and divide zero 
@@ -32,6 +37,10 @@ namespace upc {
     switch (win_type) {
     case HAMMING:
       /// \TODO Implement the Hamming window
+      /// \DONE fet
+      for (unsigned int i = 0; i < frameLen; i++){
+        window[i] = - 2 * 0.23F * cos(2 * M_PI * i / frameLen) + 0.54F;
+      }
       break;
     case RECT:
     default:
@@ -55,7 +64,8 @@ namespace upc {
     /// \TODO Implement a rule to decide whether the sound is voiced or not.
     /// * You can use the standard features (pot, r1norm, rmaxnorm),
     ///   or compute and use other ones.
-    if(rmaxnorm > umbral1){
+    /// \DONE fet
+    if((rmaxnorm > UMBRAL_RMAXNORM || r1norm > UMBRAL_R1NORM) && pot > -UMBRAL_POT){
       return false;
     }
     else{

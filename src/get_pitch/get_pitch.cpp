@@ -70,7 +70,7 @@ int main(int argc, const char *argv[]) {
   /// Preprocess the input signal in order to ease pitch estimation. For instance,
   /// central-clipping or low pass filtering may be used.
   /// \DONE fet
-   float pow = 0;
+  float pow = 0;
   for (unsigned int i = 0; i < x.size(); i++)
   {
     pow += x[i]*x[i];

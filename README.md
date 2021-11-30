@@ -117,12 +117,12 @@ Ejercicios básicos
 	(foto)
 	
 	Las gráficas de la imagen superior están en el siguiente orden (de arriba a abajo):
-	1. Tasa de cruces por cero (ZCR)
-	2. El valor de la autocorrelación en su máximo secundario
-	3. Autocorrelación normalizada de uno
-	4. El nivel de potencia de la señal
-	5. Detector de Pitch
-	6. Waveform de la señal.
+	1.Tasa de cruces por cero (ZCR)
+	2.El valor de la autocorrelación en su máximo secundario
+	3.Autocorrelación normalizada de uno
+	4.El nivel de potencia de la señal
+	5.Detector de Pitch
+	6.Waveform de la señal.
 	
 	Observamos que se ha detectado correctamente la sonoridad de la voz para los candidatos y la detección del pitch es correcta.
 
@@ -141,7 +141,7 @@ Ejercicios básicos
 
     ![WhatsApp Image 2021-11-30 at 14 36 46](https://user-images.githubusercontent.com/91891304/144060569-5a3978be-1cba-4796-8789-5dc41e01941d.jpeg)
     
-    Observamos que el score obtenido es de 89,07%, es un resultado bastante bueno, practicamente 90% sin aún mejoras.
+    Observamos que el score obtenido es de 89.07%. Es un resultado bastante bueno, practicamente de 90% y sin mejoras.
 
   * Inserte una gráfica en la que se vea con claridad el resultado de su detector de pitch junto al del
     detector de Wavesurfer. Aunque puede usarse Wavesurfer para obtener la representación, se valorará

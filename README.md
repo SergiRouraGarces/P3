@@ -114,15 +114,7 @@ Ejercicios básicos
 	
 	La gráfica que hemos obtenido con WaveSurfer es la siguiente:
 	
-	(foto)
-	
-	Las gráficas de la imagen superior están en el siguiente orden:
-	1.Tasa de cruces por cero (ZCR)
-	2.El valor de la autocorrelación en su máximo secundario
-	3.Autocorrelación normalizada de uno
-	4.El nivel de potencia de la señal
-	5.Detector de Pitch
-	6.Waveform de la señal
+	![WhatsApp Image 2021-11-30 at 15 48 34](https://user-images.githubusercontent.com/91891304/144089457-db5f7b4d-e824-423f-bda6-f44745e23584.jpeg)
 	
 	Observamos que se ha detectado correctamente la sonoridad de la voz para los candidatos y la detección del pitch es correcta.
 

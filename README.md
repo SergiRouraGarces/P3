@@ -65,9 +65,9 @@ Ejercicios básicos
  	1. Recorremos todos los valores para encontrar el primer máximo secundario de la correlación.
      	2. Comprobamos si el valor almacenado es mayor al valor actual dentro del bucle.
      	3. Si esto se cumple, guardamos la posición actual como máxima y calculamos la potencia de la señal, sabiendo que la potencia màxima coincide con la posición 0 de la 		autocorrelación.
-     
-      ```cpp
-      vector<float>::const_iterator iR = r.begin(), iRMax = iR + npitch_min;
+     	
+	```cpp
+	 vector<float>::const_iterator iR = r.begin(), iRMax = iR + npitch_min;
   
         for(iR = r.begin() + npitch_min; iR < r.begin() + npitch_max; iR++){
           if(*iR>*iRMax) {
@@ -77,8 +77,8 @@ Ejercicios básicos
         unsigned int lag = iRMax - r.begin();
   
         float pot = 10 * log10(r[0]);
-      ```
-
+	```
+          
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
 
    1. Comprobamos la poténcia de la señal. Si el sonido es sonoro tendrá una potencia significativamente mayor a si es sordo.

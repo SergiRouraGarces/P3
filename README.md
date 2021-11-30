@@ -38,9 +38,9 @@ Ejercicios básicos
 	 NOTA: es más que probable que tenga que usar Python, Octave/MATLAB u otro programa semejante para
 	 hacerlo. Se valorará la utilización de la librería matplotlib de Python.
 
-      (foto)
-      
-      El código utilizado, haciendo uso de la librería matplotlib de Python, para hacer las gráficas es el siguiente:
+      <img width="960" alt="image" src="https://user-images.githubusercontent.com/91891304/144038927-ea938590-9407-46ef-b4a8-e6ce88b6ddba.png">
+
+          El código utilizado, haciendo uso de la librería matplotlib de Python, para hacer las gráficas es el siguiente:
       
       ```cpp
       senyal, fm = sf.read('pav434_1.wav')

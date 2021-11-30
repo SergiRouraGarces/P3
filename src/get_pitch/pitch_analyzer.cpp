@@ -4,7 +4,7 @@
 #include <math.h>
 #include "pitch_analyzer.h"
 
-const float UMBRAL_RMAXNORM = 0.5F;  //modificar
+const float UMBRAL_RMAXNORM = 0.5F;  
 const float UMBRAL_R1NORM = 0.93F;
 const float UMBRAL_POT = 50.0F;
 
@@ -18,8 +18,8 @@ namespace upc {
   		/// \TODO Compute the autocorrelation r[l]
       /// \DONE Hem implementat l'autocorrelacio d'un senyal real
       r[l]=0;
-      for (unsigned int n=0; n < x.size() -l; n++) {
-        r[l] += x[n] * x[n+l];
+      for (unsigned int n=l; n < x.size(); n++) {
+        r[l] += x[n] * x[n-l];
       }
       r[1] = r[1]/x.size();
     }

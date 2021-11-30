@@ -50,7 +50,7 @@ int main(int argc, const char *argv[]) {
 
 	std::string input_wav = args["<input-wav>"].asString();
 	std::string output_txt = args["<output-txt>"].asString();
-  float umbral1 = atof(args["--umbral1"].asString().c_str());
+  //float umbral1 = atof(args["--umbral1"].asString().c_str());
 
   // Read input sound file
   unsigned int rate;
@@ -65,7 +65,7 @@ int main(int argc, const char *argv[]) {
 
   // Define analyzer
   PitchAnalyzer analyzer(n_len, rate, PitchAnalyzer::RECT, 50, 500);
-  analyzer.umbral1 = umbral1;
+  //analyzer.umbral1 = umbral1;
   /// \TODO
   /// Preprocess the input signal in order to ease pitch estimation. For instance,
   /// central-clipping or low pass filtering may be used.

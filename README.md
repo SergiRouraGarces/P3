@@ -233,10 +233,10 @@ Ejercicios de ampliación
   
   Finalmente hemos generado las siguientes gráficas para comparar el efecto del preprocesado y del postprocesado que hemos implementado en dos señales.
   En ambas gráficas el orden es el siguiente: 
-    1. Detector de pitch de WaveSurfer
-    2. Detector de pitch básico
-    3. Detector de pitch ampliación
-    4. Waveform de la señal.
+    1.Detector de pitch de WaveSurfer
+    2.Detector de pitch básico
+    3.Detector de pitch ampliación
+    4.Waveform de la señal.
 
     Para la señal "P3_a.wav":
 

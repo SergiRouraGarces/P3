@@ -55,6 +55,7 @@ Ejercicios básicos
       plt.title('Autocorrelación')
       plt.acorr(senyal, maxlags=20)
 
+      plt.tight_layout(pad=3.0)
       plt.show()
       ```
 

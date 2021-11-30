@@ -131,9 +131,8 @@ Ejercicios básicos
   
      La gráfica que hemos obtenido con WaveSurfer es la siguiente:
      
-     (foto)
-     
-     Comparando las dos gráficas vemos que son bastante parecidas.
+     ![WhatsApp Image 2021-11-30 at 17 24 15](https://user-images.githubusercontent.com/91891304/144088517-af8c73d2-756a-4daf-84a9-fd77744f8032.jpeg)
+
   
   * Optimice los parámetros de su sistema de detección de pitch e inserte una tabla con las tasas de error
     y el *score* TOTAL proporcionados por `pitch_evaluate` en la evaluación de la base de datos 
@@ -143,15 +142,11 @@ Ejercicios básicos
     
     Observamos que el score obtenido es de 89.07%. Es un resultado bastante bueno, practicamente de 90% y sin mejoras.
 
-  * Inserte una gráfica en la que se vea con claridad el resultado de su detector de pitch junto al del
-    detector de Wavesurfer. Aunque puede usarse Wavesurfer para obtener la representación, se valorará
-	  el uso de alternativas de mayor calidad (particularmente Python).
+  * Inserte una gráfica en la que se vea con claridad el resultado de su detector de pitch junto al del detector de Wavesurfer. Aunque puede usarse Wavesurfer para obtener la 	representación, se valorará el uso de alternativas de mayor calidad (particularmente Python).
 
-   	La siguiente captura se ha realizado con la señal "pav434_1.wav" que ya usamos en la práctica anterior.
-   
-   	(foto)
+   	![WhatsApp Image 2021-11-30 at 17 12 42](https://user-images.githubusercontent.com/91891304/144088841-75a0f71c-c726-4645-a9a0-5f23eccd8c46.jpeg)
 
-   	Observamos que se ha detectado correctamente la sonoridad de la voz en todos los tramos que corresponde y la detección del pitch es correcta.
+  	Observamos que se ha detectado correctamente la sonoridad de la voz en todos los tramos que corresponde y la detección del pitch es correcta.
 	 
 Aún así, se obtendrían mejores resultados aplicando un método de preprocesado y postprocesado de la señal. El método de preprocesado de la señal más utilizado es el center-clipping, que consiste en recortar los picos de la señal, para disminuir los errores en la detección. El método más usado de postprocesado de la señal más utilizado es el aplicar un filtro de mediana, para disminuir saltos en el pitch y errores en la detección, asignando a cada punto el valor de la mediana local, por lo que solo cambian los valores que no corresponden a la mediana de la muestra.
 

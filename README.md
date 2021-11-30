@@ -15,89 +15,91 @@ Ejercicios básicos
 
    * Complete el cálculo de la autocorrelación e inserte a continuación el código correspondiente.
 
-   La función de autocorrelación se define como la correlación cruzada de la señal consigo misma.
+      La función de autocorrelación se define como la correlación cruzada de la señal consigo misma.
 
-  ```cpp
-  void PitchAnalyzer::autocorrelation(const vector<float> &x, vector<float> &r) const {
+      ```cpp
+      void PitchAnalyzer::autocorrelation(const vector<float> &x, vector<float> &r) const {
 
-    for (unsigned int l = 0; l < r.size(); ++l) {
-      r[l]=0;
-      for(unsigned int n=l;n<x.size(); n++){
-        r[l]+=x[n]*x[n-l];
+      for (unsigned int l = 0; l < r.size(); ++l) { //r es un vector perque te size
+  		  r[l]=0;
+        for (unsigned int n=0; n < x.size() -l; n++) {
+          r[l] += x[n] * x[n+l];
+        }
+        r[1] = r[1]/x.size();
       }
-      r[l]=r[l]/x.size();
-    }
-
-    if (r[0] == 0.0F) //to avoid log() and divide zero 
-      r[0] = 1e-10; 
-  }
-  ```
+      if (r[0] == 0.0F) //to avoid log() and divide zero 
+        r[0] = 1e-10; 
+      }
+      ```
 
    * Inserte una gŕafica donde, en un *subplot*, se vea con claridad la señal temporal de un segmento de
-     unos 30 ms de un fonema sonoro y su periodo de pitch; y, en otro *subplot*, se vea con claridad la
-	 autocorrelación de la señal y la posición del primer máximo secundario.
+     unos 30 ms de un fonema sonoro y su periodo de pitch; y, en otro *subplot*, se vea con claridad la autocorrelación de la señal y la posición del primer máximo secundario.
 
 	 NOTA: es más que probable que tenga que usar Python, Octave/MATLAB u otro programa semejante para
 	 hacerlo. Se valorará la utilización de la librería matplotlib de Python.
 
-   Finalmente Hemos usado Matlab para generar la gráfica y lo hemos hecho con el siguiente código:
+      (foto)
+      
+      El código utilizado, haciendo uso de la librería matplotlib de Python, para hacer las gráficas es el siguiente:
+      
+      ```cpp
+      senyal, fm = sf.read('pav434_1.wav')
 
-   (foto)
+      t = np.arange(0, len(senyal)) / fm
 
-   Esto nos generó la siguiente gráfica:
+      plt.subplot(2,1,1)
+      plt.title('Señal temporal')
+      plt.plot(t, senyal)
 
-   (foto)
+      plt.subplot(2,1,2)
+      plt.title('Autocorrelación')
+      plt.acorr(senyal, maxlags=20)
 
-  En la gráfica superior obtenemos el periodo de pitch:
-  T_pitch = 0.01394-0.006562 = 0.007378 = 7 ms
-
-  Por tanto el valor del pitch es:
-  pitch = 1/ T_pitch = 1/(7*10^-3) = 142.86 Hz
-
-  Podemos ver que este valor tiene sentido ya que lo ha grabado un chico y el valor de pitch para estos suele ser al rededor de 130 Hz (de media) en cambio en las mujeres es alrededor de 220 Hz.
-
+      plt.show()
+      ```
 
    * Determine el mejor candidato para el periodo de pitch localizando el primer máximo secundario de la
      autocorrelación. Inserte a continuación el código correspondiente.
-
-     Con el código siguiente, recorremos todos los valores para encontrar el primer máximo secundario de la correlacion.
-     Después, dentro de el bucle, comprobamos si el valor almacenado es mayor al valor actual y si esto se cumple, guardamos la posición actual como máxima y calculamos la potencia de la señal.
-     La potencia la calculamos sabiendo que la pótencia màxima coincide con la posición 0 de la autocorrelación.
-    
-    ```cpp
-  vector<float>::const_iterator iR = r.begin(), iRMax = iR + npitch_min;
   
-    for(iR = r.begin() + npitch_min; iR < r.begin() + npitch_max; iR++){
-      if(*iR>*iRMax) {
-        iRMax = iR;
-      }
-    }
+     1. Recorremos todos los valores para encontrar el primer máximo secundario de la correlación.
+     2. Comprobamos si el valor almacenado es mayor al valor actual dentro del bucle.
+     3. Si esto se cumple, guardamos la posición actual como máxima y calculamos la potencia de la señal, sabiendo que la potencia màxima coincide con la posición 0 de la autocorrelación.
+     
+      ```cpp
+      vector<float>::const_iterator iR = r.begin(), iRMax = iR + npitch_min;
   
-      unsigned int lag = iRMax - r.begin();
+        for(iR = r.begin() + npitch_min; iR < r.begin() + npitch_max; iR++){
+          if(*iR>*iRMax) {
+          iRMax = iR;
+          }
+        }
+        unsigned int lag = iRMax - r.begin();
   
-      float pot = 10 * log10(r[0]);
-  ```
+        float pot = 10 * log10(r[0]);
+      ```
 
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
 
-   Para determinar si un sonido es sonoro o sordo primeramente comprobamos la poténcia de la señal, ya que si el sonido es sonoro tendrá una potencia significativamente mayor a si es sordo. Por lo que identificamos que la función de autocorrelación tiene dos máximos superiores a unos umbrales predeterminados. Esto nos ayuda a encontrar el pitch ya que solo tiene sentido calcularlo en los tramos sonoros.
+   1. Comprobamos la poténcia de la señal. Si el sonido es sonoro tendrá una potencia significativamente mayor a si es sordo.
+   2. Identificamos que la función de autocorrelación tiene dos máximos superiores a los umbrales predeterminados. Esto nos ayuda a encontrar el pitch ya que solo tiene sentido calcularlo en los tramos sonoros.
 
     ```cpp
-  bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm) const {
-    if ((rmaxnorm > UMBRAL_RMAXNORM || r1norm > UMBRAL_R1NORM) && pot > -UMBRAL_POT){
-      return false; //voice
-    }else{
-      return true;  //silence
-    }
-  }
-  ```
+     bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm) const {
 
-  Usando los siguientes umbrales:
-  ```cpp
-  const float UMBRAL_RMAXNORM = 0.5F;
-  const float UMBRAL_R1NORM = 0.93F;
-  const float UMBRAL_POT = 50.0F;
-  ``` 
+      if((rmaxnorm > UMBRAL_RMAXNORM || r1norm > UMBRAL_R1NORM) && pot > -UMBRAL_POT){
+        return false;
+      }
+      else{
+        return true; 
+      }
+    }
+    ```
+    Usando los umbrales siguientes:
+    ```cpp
+      const float UMBRAL_RMAXNORM = 0.5F;
+      const float UMBRAL_R1NORM = 0.93F;
+      const float UMBRAL_POT = 50.0F;
+    ``` 
 
 - Una vez completados los puntos anteriores, dispondrá de una primera versión del detector de pitch. El 
   resto del trabajo consiste, básicamente, en obtener las mejores prestaciones posibles con él.
@@ -107,43 +109,43 @@ Ejercicios básicos
 	
 	  - Inserte una gráfica con la detección de pitch incorporada a `wavesurfer` y, junto a ella, los 
 	    principales candidatos para determinar la sonoridad de la voz: el nivel de potencia de la señal
-		(r[0]), la autocorrelación normalizada de uno (r1norm = r[1] / r[0]) y el valor de la
-		autocorrelación en su máximo secundario (rmaxnorm = r[lag] / r[0]).
+		  (r[0]), la autocorrelación normalizada de uno (r1norm = r[1] / r[0]) y el valor de la
+		  autocorrelación en su máximo secundario (rmaxnorm = r[lag] / r[0]).
 
-		Puede considerar, también, la conveniencia de usar la tasa de cruces por cero.
+		  Puede considerar, también, la conveniencia de usar la tasa de cruces por cero.
 
 	    Recuerde configurar los paneles de datos para que el desplazamiento de ventana sea el adecuado, que
-		en esta práctica es de 15 ms.
+		  en esta práctica es de 15 ms.
 
-  La gráfica que hemos obtenido con WaveSurfer es la siguiente:
+      La gráfica que hemos obtenido con WaveSurfer es la siguiente:
   
-  (foto)
+      (foto)
 
-  Las gráficas de la imagen superior están en el siguiente orden (de arriba a abajo): 1. Tasa de cruces por cero (ZCR) 2. El valor de la autocorrelación en su máximo secundario 3. Autocorrelación normalizada de uno 4. El nivel de potencia de la señal 5. Detector de Pitch 6. Waveform de la señal.
+      Las gráficas de la imagen superior están en el siguiente orden (de arriba a abajo): 1. Tasa de cruces por cero (ZCR) 2. El valor de la autocorrelación en su máximo secundario 3. Autocorrelación normalizada de uno 4. El nivel de potencia de la señal 5. Detector de Pitch 6. Waveform de la señal.
   
-  Observamos que se ha detectado correctamente la sonoridad de la voz para los candidatos y la detección del pitch es correcta.
+      Observamos que se ha detectado correctamente la sonoridad de la voz para los candidatos y la detección del pitch es correcta.
 
-      - Use el detector de pitch implementado en el programa `wavesurfer` en una señal de prueba y compare
-	    su resultado con el obtenido por la mejor versión de su propio sistema.  Inserte una gráfica
+    - Use el detector de pitch implementado en el programa `wavesurfer` en una señal de prueba y compare
+	  su resultado con el obtenido por la mejor versión de su propio sistema.  Inserte una gráfica
 		ilustrativa del resultado de ambos detectores.
 
-    La gráfica que hemos obtenido con WaveSurfer es la siguiente:
+      La gráfica que hemos obtenido con WaveSurfer es la siguiente:
     
-    (foto)
+      (foto)
 
-    Comparando las dos gráficas vemos que son bastante parecidas.
+      Comparando las dos gráficas vemos que son bastante parecidas.
   
   * Optimice los parámetros de su sistema de detección de pitch e inserte una tabla con las tasas de error
     y el *score* TOTAL proporcionados por `pitch_evaluate` en la evaluación de la base de datos 
-	`pitch_db/train`..
+	  `pitch_db/train`..
 
-  (foto)
+    (foto)
 
-  Observamos que el score obtenido es de %%, es un resultado bastante bueno.
+    Observamos que el score obtenido es de 87,21%, es un resultado bastante bueno.
 
-   * Inserte una gráfica en la que se vea con claridad el resultado de su detector de pitch junto al del
-     detector de Wavesurfer. Aunque puede usarse Wavesurfer para obtener la representación, se valorará
-	 el uso de alternativas de mayor calidad (particularmente Python).
+  * Inserte una gráfica en la que se vea con claridad el resultado de su detector de pitch junto al del
+    detector de Wavesurfer. Aunque puede usarse Wavesurfer para obtener la representación, se valorará
+	  el uso de alternativas de mayor calidad (particularmente Python).
 
    La siguiente captura se ha realizado con la señal "pav434_1.wav" que ya usamos en la práctica anterior.
    
@@ -177,8 +179,6 @@ Ejercicios de ampliación
 
   (foto)
 
-  En que los valores "50.0, 0.93, 0.5" son el umbral de potencia, n1norm y rmaxnorm respectivamente y hemos usado los mismos umbrales escogidos anteriormente.
-  
 
 - Implemente las técnicas que considere oportunas para optimizar las prestaciones del sistema de detección
   de pitch.
@@ -219,8 +219,7 @@ Ejercicios de ampliación
 
   (foto)
 
-  Observamos que el score es de 90.79 %, por lo que añadir el central clipping ha mejorado
-  la obtención del pitch.
+  Como el score es de 88.74%, vemos que añadir el central clipping ha mejorado la obtención del pitch.
 
 
   * Técnicas de postprocesado: filtro de mediana, *dynamic time warping*, etc.
@@ -242,22 +241,23 @@ Ejercicios de ampliación
   
   (foto)
   
-  Observamos que el score obtenido es el mismo que en el caso anterior, aunque el MSE obtenido es mayor, por
-  lo que aplicar este filtro mejora la detección del pitch.
+  Observamos que el resultado ha mejorado con un 88,82%, y que el MSE obtenido es mayor, por tanto aplicar este filtro también mejora la detección del pitch.
   
-  Cabe destacar que hemos realizado una prueba aplicando un filtro de longitud 5 y el score obtenido empeoraba significativamente, dando un resultado de 90.36 %.
+    Finalmente hemos generado las siguientes gráficas para comparar el efecto del preprocesado y del postprocesado que hemos implementado en dos señales. En ambas gráficas el orden es el siguiente: 
+    1. Detector de pitch de WaveSurfer
+    2. Detector de pitch básico
+    3. Detector de pitch ampliación
+    4. Waveform de la señal.
 
-  Finalmente hemos generado las siguientes gráficas para comparar el efecto del preprocesado y del postprocesado que hemos implementado en dos señales. En ambas gráficas el orden es el siguiente (de arriba a abajo): 1. Detector de pitch de WaveSurfer 2. Detector de pitch básico 3. Detector de pitch ampliación 4. Waveform de la señal.
+    Para la señal "P3_a.wav":
 
-  Para la señal "P3_a.wav":
+    (foto)
 
-  (foto)
+    Para la señal "pav434_1.wav":
 
-  Para la señal "pav434_1.wav":
+    (foto)
 
-  (foto)
-
-  Vemos que los resultados en ambas gráficas con la ampliación suavizan el contorno de pitch y se eliminan algunos picos que aparecían en la primera versión.
+    En las gráficas podemos ver que las ampliaciones suavizan el contorno de pitch y eliminan algunos picos que si se apareciaban en la primera versión.
 
 
   * Métodos alternativos a la autocorrelación: procesado cepstral, *average magnitude difference function*

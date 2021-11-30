@@ -231,24 +231,6 @@ Ejercicios de ampliación
   
   Observamos que el resultado ha mejorado con un 90.66%, por tanto aplicar este filtro también mejora la detección del pitch.
   
-  Finalmente hemos generado las siguientes gráficas para comparar el efecto del preprocesado y del postprocesado que hemos implementado en dos señales.
-  En ambas gráficas el orden es el siguiente: 
-    1.Detector de pitch de WaveSurfer
-    2.Detector de pitch básico
-    3.Detector de pitch ampliación
-    4.Waveform de la señal.
-
-    Para la señal "P3_a.wav":
-
-    (foto)
-
-    Para la señal "pav434_1.wav":
-
-    (foto)
-
-    En las gráficas podemos ver que las ampliaciones suavizan el contorno de pitch y eliminan algunos picos que si se apareciaban en la primera versión.
-
-
   * Métodos alternativos a la autocorrelación: procesado cepstral, *average magnitude difference function*
     (AMDF), etc.
   * Optimización **demostrable** de los parámetros que gobiernan el detector, en concreto, de los que

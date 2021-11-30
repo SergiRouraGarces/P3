@@ -65,6 +65,7 @@ Ejercicios básicos
  	1. Recorremos todos los valores para encontrar el primer máximo secundario de la correlación.
      	2. Comprobamos si el valor almacenado es mayor al valor actual dentro del bucle.
      	3. Si esto se cumple, guardamos la posición actual como máxima y calculamos la potencia de la señal, sabiendo que la potencia màxima coincide con la posición 0 de la 		autocorrelación.
+
      	
 	```cpp
 	 vector<float>::const_iterator iR = r.begin(), iRMax = iR + npitch_min;

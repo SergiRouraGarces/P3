@@ -40,7 +40,7 @@ Ejercicios básicos
 
       <img width="960" alt="image" src="https://user-images.githubusercontent.com/91891304/144038927-ea938590-9407-46ef-b4a8-e6ce88b6ddba.png">
 
-          El código utilizado, haciendo uso de la librería matplotlib de Python, para hacer las gráficas es el siguiente:
+      El código utilizado, haciendo uso de la librería matplotlib de Python, para hacer las gráficas es el siguiente:
       
       ```cpp
       senyal, fm = sf.read('pav434_1.wav')
@@ -60,8 +60,8 @@ Ejercicios básicos
 
    * Determine el mejor candidato para el periodo de pitch localizando el primer máximo secundario de la
      autocorrelación. Inserte a continuación el código correspondiente.
-  
-     	1. Recorremos todos los valores para encontrar el primer máximo secundario de la correlación.
+ 
+ 	1. Recorremos todos los valores para encontrar el primer máximo secundario de la correlación.
      	2. Comprobamos si el valor almacenado es mayor al valor actual dentro del bucle.
      	3. Si esto se cumple, guardamos la posición actual como máxima y calculamos la potencia de la señal, sabiendo que la potencia màxima coincide con la posición 0 de la 		autocorrelación.
      
@@ -81,7 +81,7 @@ Ejercicios básicos
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
 
    1. Comprobamos la poténcia de la señal. Si el sonido es sonoro tendrá una potencia significativamente mayor a si es sordo.
-   2. Identificamos que la función de autocorrelación tiene dos máximos superiores a los umbrales predeterminados. Esto nos ayuda a encontrar el pitch ya que solo tiene sentido calcularlo en los tramos sonoros.
+   2. Identificamos que la función de autocorrelación tiene dos máximos superiores a los umbrales predeterminados. Esto nos ayuda a encontrar el pitch ya que solo tiene 	sentido calcularlo en los tramos sonoros.
 
     ```cpp
      bool PitchAnalyzer::unvoiced(float pot, float r1norm, float rmaxnorm) const {
@@ -94,64 +94,62 @@ Ejercicios básicos
       }
     }
     ```
-    	Usando los umbrales siguientes:
-     	![WhatsApp Image 2021-11-30 at 14 38 32](https://user-images.githubusercontent.com/91891304/144057938-e3441099-a3e6-42a8-979b-bbc83f1c12d7.jpeg)
-
+    Usando los umbrales siguientes:
+    
+    ![WhatsApp Image 2021-11-30 at 14 38 32](https://user-images.githubusercontent.com/91891304/144060115-e64e4a9a-36be-4b1f-978d-15d66141827f.jpeg)
+    
 - Una vez completados los puntos anteriores, dispondrá de una primera versión del detector de pitch. El 
   resto del trabajo consiste, básicamente, en obtener las mejores prestaciones posibles con él.
 
   * Utilice el programa `wavesurfer` para analizar las condiciones apropiadas para determinar si un
     segmento es sonoro o sordo. 
 	
-	  - Inserte una gráfica con la detección de pitch incorporada a `wavesurfer` y, junto a ella, los 
-	    principales candidatos para determinar la sonoridad de la voz: el nivel de potencia de la señal
-		  (r[0]), la autocorrelación normalizada de uno (r1norm = r[1] / r[0]) y el valor de la
-		  autocorrelación en su máximo secundario (rmaxnorm = r[lag] / r[0]).
+	- Inserte una gráfica con la detección de pitch incorporada a `wavesurfer` y, junto a ella, los principales candidatos para determinar la sonoridad de la voz: el 	nivel de potencia de la señal (r[0]), la autocorrelación normalizada de uno (r1norm = r[1] / r[0]) y el valor de la autocorrelación en su máximo secundario 			(rmaxnorm = r[lag] / r[0]).
 
-		Puede considerar, también, la conveniencia de usar la tasa de cruces por cero.
+	Puede considerar, también, la conveniencia de usar la tasa de cruces por cero.
 
-	   	Recuerde configurar los paneles de datos para que el desplazamiento de ventana sea el adecuado, que en esta práctica es de 15 ms.
-
-      		La gráfica que hemos obtenido con WaveSurfer es la siguiente:
-  
-      		(foto)
-		
-		Las gráficas de la imagen superior están en el siguiente orden (de arriba a abajo):
-		1. Tasa de cruces por cero (ZCR)
-		2. El valor de la autocorrelación en su máximo secundario
-		3. Autocorrelación normalizada de uno
-		4. El nivel de potencia de la señal
-		5. Detector de Pitch
-		6. Waveform de la señal.
-  
-      		Observamos que se ha detectado correctamente la sonoridad de la voz para los candidatos y la detección del pitch es correcta.
+	Recuerde configurar los paneles de datos para que el desplazamiento de ventana sea el adecuado, que en esta práctica es de 15 ms.
+	
+	La gráfica que hemos obtenido con WaveSurfer es la siguiente:
+	
+	(foto)
+	
+	Las gráficas de la imagen superior están en el siguiente orden (de arriba a abajo):
+	1. Tasa de cruces por cero (ZCR)
+	2. El valor de la autocorrelación en su máximo secundario
+	3. Autocorrelación normalizada de uno
+	4. El nivel de potencia de la señal
+	5. Detector de Pitch
+	6. Waveform de la señal.
+	
+	Observamos que se ha detectado correctamente la sonoridad de la voz para los candidatos y la detección del pitch es correcta.
 
   - Use el detector de pitch implementado en el programa `wavesurfer` en una señal de prueba y compare su resultado con el obtenido por la mejor versión de su propio sistema.
   -Inserte una gráfica ilustrativa del resultado de ambos detectores.
-
-      La gráfica que hemos obtenido con WaveSurfer es la siguiente:
-    
-      (foto)
-
-      Comparando las dos gráficas vemos que son bastante parecidas.
+  
+     La gráfica que hemos obtenido con WaveSurfer es la siguiente:
+     
+     (foto)
+     
+     Comparando las dos gráficas vemos que son bastante parecidas.
   
   * Optimice los parámetros de su sistema de detección de pitch e inserte una tabla con las tasas de error
     y el *score* TOTAL proporcionados por `pitch_evaluate` en la evaluación de la base de datos 
 	  `pitch_db/train`..
 
-    	![WhatsApp Image 2021-11-30 at 14 36 46](https://user-images.githubusercontent.com/91891304/144058517-738d8b0c-8828-42b5-884e-3edc7563c7f8.jpeg)
-
-    	Observamos que el score obtenido es de 89,07%, es un resultado bastante bueno, practicamente 90% sin aún mejoras.
+    ![WhatsApp Image 2021-11-30 at 14 36 46](https://user-images.githubusercontent.com/91891304/144060569-5a3978be-1cba-4796-8789-5dc41e01941d.jpeg)
+    
+    Observamos que el score obtenido es de 89,07%, es un resultado bastante bueno, practicamente 90% sin aún mejoras.
 
   * Inserte una gráfica en la que se vea con claridad el resultado de su detector de pitch junto al del
     detector de Wavesurfer. Aunque puede usarse Wavesurfer para obtener la representación, se valorará
 	  el uso de alternativas de mayor calidad (particularmente Python).
 
-   	 La siguiente captura se ha realizado con la señal "pav434_1.wav" que ya usamos en la práctica anterior.
+   	La siguiente captura se ha realizado con la señal "pav434_1.wav" que ya usamos en la práctica anterior.
    
-   	 (foto)
+   	(foto)
 
-   	 Observamos que se ha detectado correctamente la sonoridad de la voz en todos los tramos que corresponde y la detección del pitch es correcta.
+   	Observamos que se ha detectado correctamente la sonoridad de la voz en todos los tramos que corresponde y la detección del pitch es correcta.
 	 
 Aún así, se obtendrían mejores resultados aplicando un método de preprocesado y postprocesado de la señal. El método de preprocesado de la señal más utilizado es el center-clipping, que consiste en recortar los picos de la señal, para disminuir los errores en la detección. El método más usado de postprocesado de la señal más utilizado es el aplicar un filtro de mediana, para disminuir saltos en el pitch y errores en la detección, asignando a cada punto el valor de la mediana local, por lo que solo cambian los valores que no corresponden a la mediana de la muestra.
 
@@ -205,7 +203,7 @@ Ejercicios de ampliación
 	  
 	  El score obtenido es el siguiente:
 	 
-	  ![WhatsApp Image 2021-11-30 at 14 37 36](https://user-images.githubusercontent.com/91891304/144059200-b3b5af2c-e1c8-4c9d-82ca-2c3d0af3a306.jpeg)
+	  ![WhatsApp Image 2021-11-30 at 14 37 36](https://user-images.githubusercontent.com/91891304/144060792-03dee75b-f040-462a-aa75-9ab793877ea5.jpeg)
 
   	 Como el score es de 90.06%, vemos que añadir el central clipping ha mejorado la obtención del pitch.
 
@@ -227,8 +225,8 @@ Ejercicios de ampliación
   
   El score obtenido es el siguiente:
   
-  ![WhatsApp Image 2021-11-30 at 14 36 46](https://user-images.githubusercontent.com/91891304/144059343-cd7130f0-f6ac-43cb-b6e4-2aa7a66a4de7.jpeg)
-
+  ![WhatsApp Image 2021-11-30 at 14 38 15](https://user-images.githubusercontent.com/91891304/144060861-eb9ce24e-05ed-4f80-b6a9-5f24fe3bebc8.jpeg)
+  
   Observamos que el resultado ha mejorado con un 90.66%, por tanto aplicar este filtro también mejora la detección del pitch.
   
   Finalmente hemos generado las siguientes gráficas para comparar el efecto del preprocesado y del postprocesado que hemos implementado en dos señales.

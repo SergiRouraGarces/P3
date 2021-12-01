@@ -114,16 +114,17 @@ Ejercicios básicos
 	
 	La gráfica que hemos obtenido con WaveSurfer es la siguiente:
 	
-	<img width="960" alt="image" src="https://user-images.githubusercontent.com/91891304/144269972-2ef8925c-e522-427c-a35f-afede5e5a8be.png">
+	![WhatsApp Image 2021-12-01 at 17 01 31](https://user-images.githubusercontent.com/91891304/144270354-c9e3be72-2f40-41af-b7a4-a74dea2a3ad0.jpeg)
 	
 	Observamos que se ha detectado correctamente la sonoridad de la voz para los candidatos y la detección del pitch es correcta.
+	
 
   - Use el detector de pitch implementado en el programa `wavesurfer` en una señal de prueba y compare su resultado con el obtenido por la mejor versión de su propio sistema.
   -Inserte una gráfica ilustrativa del resultado de ambos detectores.
   
      La gráfica que hemos obtenido con WaveSurfer es la siguiente:
      
-     ![WhatsApp Image 2021-11-30 at 17 24 15](https://user-images.githubusercontent.com/91891304/144088517-af8c73d2-756a-4daf-84a9-fd77744f8032.jpeg)
+     <img width="960" alt="image" src="https://user-images.githubusercontent.com/91891304/144269972-2ef8925c-e522-427c-a35f-afede5e5a8be.png">
 
   
   * Optimice los parámetros de su sistema de detección de pitch e inserte una tabla con las tasas de error

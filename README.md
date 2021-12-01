@@ -114,7 +114,7 @@ Ejercicios básicos
 	
 	La gráfica que hemos obtenido con WaveSurfer es la siguiente:
 	
-	![WhatsApp Image 2021-11-30 at 15 48 34](https://user-images.githubusercontent.com/91891304/144089457-db5f7b4d-e824-423f-bda6-f44745e23584.jpeg)
+	<img width="960" alt="image" src="https://user-images.githubusercontent.com/91891304/144269972-2ef8925c-e522-427c-a35f-afede5e5a8be.png">
 	
 	Observamos que se ha detectado correctamente la sonoridad de la voz para los candidatos y la detección del pitch es correcta.
 

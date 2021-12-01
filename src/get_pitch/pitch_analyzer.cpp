@@ -114,8 +114,8 @@ namespace upc {
 #endif
     
     if (unvoiced(pot, r[1]/r[0], r[lag]/r[0]))
-      return 0;
+      return  0; //r[1]/r[0]; 
     else
-      return (float) samplingFreq/(float) lag;
+      return  (float) samplingFreq/(float) lag; //r[1]/r[0];
   }
 }
